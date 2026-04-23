@@ -214,12 +214,12 @@ const ProcessStep = ({ number, title, description, icon: Icon }: { number: strin
 );
 
 const TestimonialCard = ({ name, company, quote }: { name: string, company: string, quote: string }) => (
-    <div className="bg-brand-cream p-8 rounded-sm border-2 border-brand-green shadow-[6px_6px_0px_#C5A059] relative italic">
+    <div className="bg-brand-cream p-8 rounded-sm border-2 border-brand-green shadow-[6px_6px_0px_#C5A059] relative italic flex flex-col h-full min-h-[300px]">
       <Quote className="absolute top-4 right-4 text-brand-gold/10" size={48} />
-      <p className="text-brand-text relative z-10 mb-6 text-sm font-bold uppercase tracking-tight leading-relaxed">
+      <p className="text-brand-text relative z-10 mb-6 text-sm font-bold tracking-tight leading-relaxed flex-grow">
         "{quote}"
       </p>
-      <div className="not-italic border-t border-brand-green/20 pt-4">
+      <div className="not-italic border-t border-brand-green/20 pt-4 shrink-0">
         <p className="font-serif italic text-lg text-brand-green leading-none">{name}</p>
         <p className="text-[10px] uppercase font-black tracking-widest text-brand-gold mt-1">{company}</p>
       </div>
@@ -1166,7 +1166,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-6">
           <SectionHeading subtitle="Voices of the Neighborhood">Client Testimonials</SectionHeading>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <TestimonialCard 
               name="Sarah Jenkins"
               company="Brew & Bloom"
