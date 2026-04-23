@@ -3,8 +3,18 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Mic, MicOff, Send, X, Volume2, VolumeX, MessageSquare, Loader2, Phone } from 'lucide-react';
 import { GoogleGenAI } from "@google/genai";
 
-// Initialize Gemini
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+// Lazy initialization for Gemini
+let aiInstance: GoogleGenAI | null = null;
+const getAI = () => {
+  if (!aiInstance) {
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY || (process.env as any).GEMINI_API_KEY;
+    if (!apiKey) {
+      throw new Error("GEMINI_API_KEY is not configured. Please add it to your secrets.");
+    }
+    aiInstance = new GoogleGenAI({ apiKey });
+  }
+  return aiInstance;
+};
 
 const SYSTEM_PROMPT = `You are Maya, the friendly and professional virtual voice assistant for Main Street Creative Brand Co. 
 
@@ -116,6 +126,7 @@ const AIAssistant = () => {
     setStatusText('Processing...');
     
     try {
+      const ai = getAI();
       const response = await ai.models.generateContent({
         model: "gemini-3-flash-preview",
         contents: text,
